@@ -166,7 +166,7 @@ class Client
      */
     public function get(string $endpoint, array $params = [])
     {
-        $apiEndpoint = $this->getRegion()->betaUri();
+        $apiEndpoint = $this->getRegion()->apiUri();// betaUri();
 
         $options = $this->getDefaultParams($apiEndpoint);
         if (!empty($params)) {

@@ -91,9 +91,13 @@ class Customers extends Base
      */
     public function get(array $options)
     {
-        if (!isset($options['email'])) {
-            $this->mockException('Email is required!', 'GET');
-        } // @codeCoverageIgnore
+//        if (!isset($options['email'])) {
+//            $this->mockException('Email is required!', 'GET');
+//        } // @codeCoverageIgnore
+
+        if (!isset($options['id']) && !isset($options['email'])) {
+            $this->mockException('User id or email is required!', 'GET');
+        }
 
         $path = $this->customerPath();
 
@@ -130,7 +134,7 @@ class Customers extends Base
             $this->mockException('User id or email is required!', 'GET');
         } // @codeCoverageIgnore
 
-        $path = $this->setCustomerPathWithIdentifier($options);
+        $path = $this->setCustomerPathWithIdentifier($options) . '/attributes';
 
         return $this->client->get($path, $options);
     }
