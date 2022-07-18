@@ -198,12 +198,13 @@ class Customers extends Base
      */
     public function suppress(array $options)
     {
-        if (!isset($options['id']) && !isset($options['email'])) {
-            $this->mockException('User id or email is required!', 'GET');
+        if (!isset($options['id']) && !isset($options['email']) && !isset($options['cio_id'])) {
+            $this->mockException('User id, email or cio_id is required!', 'POST');
         } // @codeCoverageIgnore
 
-        $path = $this->setCustomerPathWithIdentifier($options);
-        
+        $path = $this->setCustomerPathWithIdentifier($options) . '/suppress';
+
+        \Log::debug($path);
         return $this->client->post($path, $options);
     }
 
@@ -215,11 +216,11 @@ class Customers extends Base
      */
     public function unsuppress(array $options)
     {
-       if (!isset($options['id']) && !isset($options['email'])) {
-            $this->mockException('User id or email is required!', 'GET');
+        if (!isset($options['id']) && !isset($options['email']) && !isset($options['cio_id'])) {
+            $this->mockException('User id, email or cio_id is required!', 'POST');
         } // @codeCoverageIgnore
 
-        $path = $this->setCustomerPathWithIdentifier($options);
+        $path = $this->setCustomerPathWithIdentifier($options) . '/unsuppress';
 
         return $this->client->post($path, $options);
     }
